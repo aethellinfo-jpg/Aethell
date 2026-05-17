@@ -1,203 +1,237 @@
-export default function IELTSMasteryPlatform() { const listeningLessons = [ { title: "Beginner Listening - Daily Conversation", level: "Elementary", audio: "https://www.elllo.org/audio/1001/T1034-LifeInUzbekistan.mp3", task: "Listen and write 5 new words.", }, { title: "IELTS Listening Practice Test 1", level: "Pre-Intermediate", audio: "https://ieltsonlinetests.com/sites/default/files/2023-07/listening_test.mp3", task: "Answer 10 multiple choice questions.", }, ];
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>IELTS 7+ Mastery</title>
 
-const speakingVideos = [ { title: "IELTS Speaking Band 7 Example", url: "https://www.youtube.com/watch?v=Jzps8q2es7c", }, { title: "How to Improve Fluency", url: "https://www.youtube.com/watch?v=Vv8SKQd2QGk", }, ];
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, sans-serif;
+    }
 
-const writingTasks = [ { title: "Task 1 - Bar Chart", topic: "Population Growth", sample: "The bar chart illustrates the population growth in four countries between 2000 and 2020...", }, { title: "Task 2 - Opinion Essay", topic: "Technology in Education", sample: "Some people believe technology improves education while others disagree...", }, ];
+    body{
+      background:#0f172a;
+      color:white;
+      line-height:1.6;
+    }
 
-const vocabularyLessons = [ { category: "Easy Words", items: [ { word: "Achieve", meaning: "to successfully reach a goal", example: "She achieved a high IELTS score.", }, { word: "Benefit", meaning: "a positive effect", example: "Reading gives many benefits.", }, ], }, { category: "Advanced IELTS Words", items: [ { word: "Comprehensive", meaning: "complete and including everything", example: "The report gives a comprehensive analysis.", }, { word: "Deteriorate", meaning: "to become worse", example: "Air quality may deteriorate in cities.", }, ], }, ];
+    header{
+      padding:40px 20px;
+      text-align:center;
+      background:linear-gradient(135deg,#2563eb,#7c3aed);
+    }
 
-const readingLessons = [ { title: "Reading Skimming Technique", text: "Learn how to quickly understand the main idea of a passage.", }, { title: "Scanning Practice", text: "Find keywords and answers faster in IELTS reading sections.", }, ];
+    header h1{
+      font-size:40px;
+      margin-bottom:15px;
+    }
 
-return ( <div className="min-h-screen bg-slate-950 text-white p-6"> <div className="max-w-7xl mx-auto space-y-10"> <header className="text-center py-10"> <h1 className="text-5xl font-bold mb-4">IELTS 7+ Mastery Platform</h1> <p className="text-slate-300 text-lg max-w-3xl mx-auto"> 8 oy ichida IELTS 7+ olish uchun maxsus platforma. Elementary darajadan boshlovchilar uchun Vocabulary, Listening, Reading, Speaking va Writing darslari. </p> </header>
+    .container{
+      width:90%;
+      max-width:1200px;
+      margin:auto;
+      padding:30px 0;
+    }
 
-<section className="grid md:grid-cols-5 gap-4">
-      {[
-        "Vocabulary",
-        "Listening",
-        "Reading",
-        "Speaking",
-        "Writing",
-      ].map((item) => (
-        <div
-          key={item}
-          className="bg-slate-900 rounded-3xl p-6 shadow-xl border border-slate-800 hover:scale-105 transition"
-        >
-          <h2 className="text-2xl font-semibold">{item}</h2>
-          <p className="text-slate-400 mt-2">
-            Structured lessons and IELTS practice materials.
-          </p>
-        </div>
-      ))}
-    </section>
+    .section{
+      background:#1e293b;
+      padding:25px;
+      border-radius:20px;
+      margin-bottom:30px;
+    }
 
-    <section className="bg-slate-900 rounded-3xl p-8 border border-slate-800">
-      <h2 className="text-4xl font-bold mb-6">8-Month Study Roadmap</h2>
-      <div className="grid md:grid-cols-4 gap-4">
-        {[
-          "Month 1-2: Basic Grammar + Vocabulary",
-          "Month 3-4: Listening & Reading Intensive",
-          "Month 5-6: Speaking + Writing Development",
-          "Month 7-8: Full Mock Tests + Band 7 Strategy",
-        ].map((plan) => (
-          <div
-            key={plan}
-            className="bg-slate-800 rounded-2xl p-5"
-          >
-            {plan}
-          </div>
-        ))}
+    .section h2{
+      margin-bottom:20px;
+      color:#60a5fa;
+    }
+
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:20px;
+    }
+
+    .card{
+      background:#334155;
+      padding:20px;
+      border-radius:15px;
+    }
+
+    .card h3{
+      margin-bottom:10px;
+      color:#93c5fd;
+    }
+
+    audio{
+      width:100%;
+      margin-top:10px;
+    }
+
+    iframe{
+      width:100%;
+      height:220px;
+      border:none;
+      border-radius:10px;
+    }
+
+    .quiz button{
+      margin-top:10px;
+      padding:10px 15px;
+      border:none;
+      border-radius:10px;
+      cursor:pointer;
+      background:#2563eb;
+      color:white;
+    }
+
+    footer{
+      text-align:center;
+      padding:30px;
+      background:#111827;
+      margin-top:40px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>IELTS 7+ Mastery Platform</h1>
+  <p>8 oy ichida IELTS 7+ uchun to‘liq platforma</p>
+</header>
+
+<div class="container">
+
+  <div class="section">
+    <h2>Vocabulary</h2>
+
+    <div class="cards">
+      <div class="card">
+        <h3>Easy Words</h3>
+        <p><b>Achieve</b> — maqsadga erishmoq</p>
+        <p><b>Benefit</b> — foyda</p>
+        <p><b>Improve</b> — yaxshilamoq</p>
       </div>
-    </section>
 
-    <section className="bg-slate-900 rounded-3xl p-8 border border-slate-800">
-      <h2 className="text-4xl font-bold mb-8">Vocabulary Lessons & Quiz</h2>
-
-      <div className="space-y-10">
-        {vocabularyLessons.map((group) => (
-          <div key={group.category}>
-            <h3 className="text-3xl font-bold mb-6 text-blue-400">
-              {group.category}
-            </h3>
-
-            <div className="grid md:grid-cols-2 gap-6">
-              {group.items.map((lesson) => (
-                <div
-                  key={lesson.word}
-                  className="bg-slate-800 rounded-2xl p-6"
-                >
-                  <h3 className="text-2xl font-bold">{lesson.word}</h3>
-                  <p className="text-slate-300 mt-3">{lesson.meaning}</p>
-                  <p className="text-green-400 mt-3 italic">
-                    {lesson.example}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
+      <div class="card">
+        <h3>Advanced Words</h3>
+        <p><b>Comprehensive</b> — to‘liq</p>
+        <p><b>Deteriorate</b> — yomonlashmoq</p>
+        <p><b>Significant</b> — muhim</p>
       </div>
+    </div>
 
-      <div className="mt-12 bg-slate-800 rounded-3xl p-8">
-        <h3 className="text-3xl font-bold mb-6">Vocabulary Quiz</h3>
+    <div class="quiz" style="margin-top:25px;">
+      <h3>Vocabulary Quiz</h3>
+      <p>What does “Comprehensive” mean?</p>
 
-        <div className="space-y-6">
-          <div className="bg-slate-700 rounded-2xl p-5">
-            <p className="text-xl font-semibold">
-              1. What does “Comprehensive” mean?
-            </p>
-            <ul className="mt-4 space-y-2 text-slate-300">
-              <li>A) Complete</li>
-              <li>B) Small</li>
-              <li>C) Dangerous</li>
-            </ul>
-          </div>
+      <button onclick="checkAnswer('wrong')">Dangerous</button>
+      <button onclick="checkAnswer('correct')">Complete</button>
+      <button onclick="checkAnswer('wrong')">Small</button>
 
-          <div className="bg-slate-700 rounded-2xl p-5">
-            <p className="text-xl font-semibold">
-              2. Choose the synonym of “Benefit”
-            </p>
-            <ul className="mt-4 space-y-2 text-slate-300">
-              <li>A) Harm</li>
-              <li>B) Advantage</li>
-              <li>C) Problem</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section className="bg-slate-900 rounded-3xl p-8 border border-slate-800">
-      <h2 className="text-4xl font-bold mb-8">Listening Lessons</h2>
-      <div className="grid md:grid-cols-2 gap-6">
-        {listeningLessons.map((lesson) => (
-          <div
-            key={lesson.title}
-            className="bg-slate-800 rounded-2xl p-6"
-          >
-            <h3 className="text-2xl font-bold">{lesson.title}</h3>
-            <p className="text-slate-400 mt-2">{lesson.level}</p>
-            <audio controls className="w-full mt-5">
-              <source src={lesson.audio} type="audio/mpeg" />
-            </audio>
-            <p className="mt-4 text-blue-300">Task: {lesson.task}</p>
-          </div>
-        ))}
-      </div>
-    </section>
-
-    <section className="bg-slate-900 rounded-3xl p-8 border border-slate-800">
-      <h2 className="text-4xl font-bold mb-8">Reading Lessons & Materials</h2>
-
-      <div className="mb-10 bg-slate-800 rounded-2xl p-6">
-        <h3 className="text-2xl font-bold">IELTS Reading Tips</h3>
-        <ul className="list-disc ml-6 mt-4 text-slate-300 space-y-2">
-          <li>Use skimming for the main idea.</li>
-          <li>Use scanning for keywords.</li>
-          <li>Practice time management daily.</li>
-          <li>Underline important words while reading.</li>
-        </ul>
-      </div>
-      <div className="grid md:grid-cols-2 gap-6">
-        {readingLessons.map((lesson) => (
-          <div
-            key={lesson.title}
-            className="bg-slate-800 rounded-2xl p-6"
-          >
-            <h3 className="text-2xl font-bold">{lesson.title}</h3>
-            <p className="text-slate-300 mt-4">{lesson.text}</p>
-          </div>
-        ))}
-      </div>
-    </section>
-
-    <section className="bg-slate-900 rounded-3xl p-8 border border-slate-800">
-      <h2 className="text-4xl font-bold mb-8">Speaking Video Lessons</h2>
-      <div className="grid md:grid-cols-2 gap-6">
-        {speakingVideos.map((video) => (
-          <div
-            key={video.title}
-            className="bg-slate-800 rounded-2xl p-6"
-          >
-            <h3 className="text-2xl font-bold mb-4">{video.title}</h3>
-            <iframe
-              className="w-full aspect-video rounded-xl"
-              src={video.url.replace("watch?v=", "embed/")}
-              title={video.title}
-              allowFullScreen
-            />
-          </div>
-        ))}
-      </div>
-    </section>
-
-    <section className="bg-slate-900 rounded-3xl p-8 border border-slate-800">
-      <h2 className="text-4xl font-bold mb-8">Writing Mock Tasks</h2>
-      <div className="grid md:grid-cols-2 gap-6">
-        {writingTasks.map((task) => (
-          <div
-            key={task.title}
-            className="bg-slate-800 rounded-2xl p-6"
-          >
-            <h3 className="text-2xl font-bold">{task.title}</h3>
-            <p className="text-blue-400 mt-3">Topic: {task.topic}</p>
-            <p className="text-slate-300 mt-4 leading-7">
-              {task.sample}
-            </p>
-          </div>
-        ))}
-      </div>
-    </section>
-
-    <section className="bg-gradient-to-r from-blue-600 to-purple-700 rounded-3xl p-10 text-center">
-      <h2 className="text-5xl font-bold mb-4">Target IELTS Band 7+</h2>
-      <p className="text-xl max-w-3xl mx-auto">
-        Daily study + mock tests + speaking practice orqali 8 oy ichida yuqori natijaga chiqish uchun maxsus tizim.
-      </p>
-      <button className="mt-8 px-8 py-4 bg-white text-black rounded-2xl font-bold text-lg hover:scale-105 transition">
-        Start Learning
-      </button>
-    </section>
+      <p id="result" style="margin-top:15px;"></p>
+    </div>
   </div>
+
+  <div class="section">
+    <h2>Listening</h2>
+
+    <div class="cards">
+      <div class="card">
+        <h3>Daily Conversation</h3>
+
+        <audio controls>
+          <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        </audio>
+
+        <p style="margin-top:10px;">Task: Write 5 new words.</p>
+      </div>
+
+      <div class="card">
+        <h3>IELTS Practice Audio</h3>
+
+        <audio controls>
+          <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
+        </audio>
+
+        <p style="margin-top:10px;">Task: Answer listening questions.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Reading</h2>
+
+    <div class="cards">
+      <div class="card">
+        <h3>Skimming Technique</h3>
+        <p>Learn how to understand the main idea quickly.</p>
+      </div>
+
+      <div class="card">
+        <h3>Scanning Technique</h3>
+        <p>Find keywords and answers faster.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Speaking</h2>
+
+    <div class="cards">
+      <div class="card">
+        <h3>Band 7 Speaking</h3>
+
+        <iframe src="https://www.youtube.com/embed/Jzps8q2es7c"></iframe>
+      </div>
+
+      <div class="card">
+        <h3>Fluency Practice</h3>
+
+        <iframe src="https://www.youtube.com/embed/Vv8SKQd2QGk"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Writing</h2>
+
+    <div class="cards">
+      <div class="card">
+        <h3>Task 1</h3>
+        <p>Bar chart about population growth.</p>
+      </div>
+
+      <div class="card">
+        <h3>Task 2</h3>
+        <p>Essay about technology in education.</p>
+      </div>
+    </div>
+  </div>
+
 </div>
 
-); }
+<footer>
+  <h2>Target IELTS Band 7+</h2>
+  <p>Daily practice + Mock Tests + Smart Learning</p>
+</footer>
+
+<script>
+  function checkAnswer(answer){
+    const result = document.getElementById("result");
+
+    if(answer === "correct"){
+      result.innerHTML = "✅ Correct Answer!";
+      result.style.color = "lightgreen";
+    }else{
+      result.innerHTML = "❌ Wrong Answer!";
+      result.style.color = "red";
+    }
+  }
+</script>
+
+</body>
+</html>

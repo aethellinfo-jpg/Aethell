@@ -1,11 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>IELTS 7+ Mastery</title>
-
-  <style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IELTS Mastery Platform</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>  <style>
     *{
       margin:0;
       padding:0;
@@ -19,219 +17,377 @@
       line-height:1.6;
     }
 
-    header{
-      padding:40px 20px;
+    nav{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:20px 8%;
+      background:#111827;
+      position:sticky;
+      top:0;
+      z-index:1000;
+      box-shadow:0 2px 10px rgba(0,0,0,0.3);
+    }
+
+    nav h1{
+      color:#60a5fa;
+      font-size:28px;
+    }
+
+    nav ul{
+      display:flex;
+      gap:20px;
+      list-style:none;
+    }
+
+    nav a{
+      color:white;
+      text-decoration:none;
+      transition:0.3s;
+    }
+
+    nav a:hover{
+      color:#60a5fa;
+    }
+
+    .hero{
+      min-height:90vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
       text-align:center;
+      padding:40px;
       background:linear-gradient(135deg,#2563eb,#7c3aed);
     }
 
-    header h1{
-      font-size:40px;
-      margin-bottom:15px;
+    .hero-content h2{
+      font-size:60px;
+      margin-bottom:20px;
+    }
+
+    .hero-content p{
+      max-width:700px;
+      margin:auto;
+      font-size:20px;
+    }
+
+    .hero-btn{
+      margin-top:30px;
+      display:inline-block;
+      padding:15px 35px;
+      border-radius:15px;
+      background:white;
+      color:black;
+      text-decoration:none;
+      font-weight:bold;
+      transition:0.3s;
+    }
+
+    .hero-btn:hover{
+      transform:scale(1.05);
     }
 
     .container{
       width:90%;
-      max-width:1200px;
+      max-width:1300px;
       margin:auto;
-      padding:30px 0;
+      padding:60px 0;
     }
 
-    .section{
-      background:#1e293b;
-      padding:25px;
-      border-radius:20px;
-      margin-bottom:30px;
+    .section-title{
+      text-align:center;
+      margin-bottom:40px;
     }
 
-    .section h2{
-      margin-bottom:20px;
+    .section-title h2{
+      font-size:42px;
       color:#60a5fa;
     }
 
-    .cards{
+    .grid{
       display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-      gap:20px;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:25px;
     }
 
     .card{
-      background:#334155;
-      padding:20px;
-      border-radius:15px;
+      background:#1e293b;
+      padding:25px;
+      border-radius:25px;
+      transition:0.3s;
+      border:1px solid rgba(255,255,255,0.08);
+      box-shadow:0 4px 20px rgba(0,0,0,0.3);
+    }
+
+    .card:hover{
+      transform:translateY(-8px);
+    }
+
+    .card i{
+      font-size:45px;
+      color:#60a5fa;
+      margin-bottom:15px;
     }
 
     .card h3{
-      margin-bottom:10px;
-      color:#93c5fd;
+      margin-bottom:15px;
+      font-size:24px;
     }
 
-    audio{
+    .audio-box audio{
       width:100%;
-      margin-top:10px;
+      margin-top:15px;
     }
 
     iframe{
       width:100%;
-      height:220px;
+      height:230px;
       border:none;
-      border-radius:10px;
+      border-radius:15px;
+      margin-top:15px;
+    }
+
+    .quiz{
+      margin-top:20px;
+      background:#334155;
+      padding:20px;
+      border-radius:20px;
     }
 
     .quiz button{
+      width:100%;
+      padding:12px;
       margin-top:10px;
-      padding:10px 15px;
       border:none;
-      border-radius:10px;
-      cursor:pointer;
+      border-radius:12px;
       background:#2563eb;
       color:white;
+      font-size:16px;
+      cursor:pointer;
+      transition:0.3s;
+    }
+
+    .quiz button:hover{
+      background:#1d4ed8;
+    }
+
+    #result{
+      margin-top:15px;
+      font-weight:bold;
+      font-size:18px;
+    }
+
+    .roadmap{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:20px;
+      margin-top:40px;
+    }
+
+    .roadmap div{
+      background:#1e293b;
+      padding:25px;
+      border-radius:20px;
+      text-align:center;
+      font-weight:bold;
     }
 
     footer{
-      text-align:center;
-      padding:30px;
       background:#111827;
-      margin-top:40px;
+      text-align:center;
+      padding:40px 20px;
+      margin-top:60px;
     }
-  </style>
-</head>
-<body>
 
-<header>
-  <h1>IELTS 7+ Mastery Platform</h1>
-  <p>8 oy ichida IELTS 7+ uchun to‘liq platforma</p>
-</header>
+    footer h2{
+      margin-bottom:15px;
+      color:#60a5fa;
+    }
 
-<div class="container">
+    @media(max-width:768px){
+      nav{
+        flex-direction:column;
+        gap:15px;
+      }
 
-  <div class="section">
-    <h2>Vocabulary</h2>
+      .hero-content h2{
+        font-size:38px;
+      }
 
-    <div class="cards">
-      <div class="card">
-        <h3>Easy Words</h3>
-        <p><b>Achieve</b> — maqsadga erishmoq</p>
-        <p><b>Benefit</b> — foyda</p>
-        <p><b>Improve</b> — yaxshilamoq</p>
-      </div>
+      .hero-content p{
+        font-size:16px;
+      }
+    }
+  </style></head>
+<body><nav>
+  <h1><i class="fa-solid fa-graduation-cap"></i> IELTS Mastery</h1>  <ul>
+    <li><a href="#vocab">Vocabulary</a></li>
+    <li><a href="#listening">Listening</a></li>
+    <li><a href="#reading">Reading</a></li>
+    <li><a href="#speaking">Speaking</a></li>
+    <li><a href="#writing">Writing</a></li>
+  </ul>
+</nav><section class="hero">
+  <div class="hero-content">
+    <h2>IELTS 7+ Platform</h2>
+    <p>
+      Elementary darajadan IELTS 7+ ga chiqish uchun maxsus learning platform.
+      Listening, Reading, Writing, Speaking va Vocabulary darslari.
+    </p><a href="#vocab" class="hero-btn">Start Learning</a>
 
-      <div class="card">
-        <h3>Advanced Words</h3>
-        <p><b>Comprehensive</b> — to‘liq</p>
-        <p><b>Deteriorate</b> — yomonlashmoq</p>
-        <p><b>Significant</b> — muhim</p>
-      </div>
-    </div>
-
-    <div class="quiz" style="margin-top:25px;">
-      <h3>Vocabulary Quiz</h3>
-      <p>What does “Comprehensive” mean?</p>
-
-      <button onclick="checkAnswer('wrong')">Dangerous</button>
-      <button onclick="checkAnswer('correct')">Complete</button>
-      <button onclick="checkAnswer('wrong')">Small</button>
-
-      <p id="result" style="margin-top:15px;"></p>
-    </div>
   </div>
-
-  <div class="section">
-    <h2>Listening</h2>
-
-    <div class="cards">
-      <div class="card">
-        <h3>Daily Conversation</h3>
-
-        <audio controls>
-          <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-        </audio>
-
-        <p style="margin-top:10px;">Task: Write 5 new words.</p>
-      </div>
-
-      <div class="card">
-        <h3>IELTS Practice Audio</h3>
-
-        <audio controls>
-          <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
-        </audio>
-
-        <p style="margin-top:10px;">Task: Answer listening questions.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="section">
-    <h2>Reading</h2>
-
-    <div class="cards">
-      <div class="card">
-        <h3>Skimming Technique</h3>
-        <p>Learn how to understand the main idea quickly.</p>
-      </div>
-
-      <div class="card">
-        <h3>Scanning Technique</h3>
-        <p>Find keywords and answers faster.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="section">
-    <h2>Speaking</h2>
-
-    <div class="cards">
-      <div class="card">
-        <h3>Band 7 Speaking</h3>
-
-        <iframe src="https://www.youtube.com/embed/Jzps8q2es7c"></iframe>
-      </div>
-
-      <div class="card">
-        <h3>Fluency Practice</h3>
-
-        <iframe src="https://www.youtube.com/embed/Vv8SKQd2QGk"></iframe>
-      </div>
-    </div>
-  </div>
-
-  <div class="section">
-    <h2>Writing</h2>
-
-    <div class="cards">
-      <div class="card">
-        <h3>Task 1</h3>
-        <p>Bar chart about population growth.</p>
-      </div>
-
-      <div class="card">
-        <h3>Task 2</h3>
-        <p>Essay about technology in education.</p>
-      </div>
-    </div>
-  </div>
-
+</section><div class="container">  <div class="section-title">
+    <h2>8-Month Roadmap</h2>
+  </div>  <div class="roadmap">
+    <div>Month 1-2<br>Basic Grammar + Vocabulary</div>
+    <div>Month 3-4<br>Listening & Reading</div>
+    <div>Month 5-6<br>Speaking + Writing</div>
+    <div>Month 7-8<br>Mock Tests + Band 7 Strategy</div>
+  </div></div><div class="container" id="vocab">
+  <div class="section-title">
+    <h2>Vocabulary Section</h2>
+  </div>  <div class="grid"><div class="card">
+  <i class="fa-solid fa-book"></i>
+  <h3>Easy Words</h3>
+  <p><b>Achieve</b> — maqsadga erishmoq</p>
+  <p><b>Benefit</b> — foyda</p>
+  <p><b>Improve</b> — yaxshilamoq</p>
 </div>
 
-<footer>
+<div class="card">
+  <i class="fa-solid fa-brain"></i>
+  <h3>Advanced IELTS Words</h3>
+  <p><b>Comprehensive</b> — to'liq</p>
+  <p><b>Deteriorate</b> — yomonlashmoq</p>
+  <p><b>Significant</b> — muhim</p>
+</div>
+
+<div class="card">
+  <i class="fa-solid fa-pen"></i>
+  <h3>Vocabulary Quiz</h3>
+
+  <div class="quiz">
+    <p>What does “Comprehensive” mean?</p>
+
+    <button onclick="checkAnswer('wrong')">Dangerous</button>
+    <button onclick="checkAnswer('correct')">Complete</button>
+    <button onclick="checkAnswer('wrong')">Small</button>
+
+    <p id="result"></p>
+  </div>
+</div>
+
+  </div>
+</div><div class="container" id="listening">
+  <div class="section-title">
+    <h2>Listening Lessons</h2>
+  </div>  <div class="grid"><div class="card audio-box">
+  <i class="fa-solid fa-headphones"></i>
+  <h3>Daily Conversation</h3>
+
+  <audio controls>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  </audio>
+
+  <p style="margin-top:15px;">Task: Write 5 new words.</p>
+</div>
+
+<div class="card audio-box">
+  <i class="fa-solid fa-volume-high"></i>
+  <h3>IELTS Listening Practice</h3>
+
+  <audio controls>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
+  </audio>
+
+  <p style="margin-top:15px;">Task: Answer the listening questions.</p>
+</div>
+
+  </div>
+</div><div class="container" id="reading">
+  <div class="section-title">
+    <h2>Reading Materials</h2>
+  </div>  <div class="grid"><div class="card">
+  <i class="fa-solid fa-file-lines"></i>
+  <h3>Skimming Technique</h3>
+  <p>Learn how to identify the main idea quickly while reading IELTS passages.</p>
+</div>
+
+<div class="card">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <h3>Scanning Technique</h3>
+  <p>Practice finding keywords and exact answers faster.</p>
+</div>
+
+<div class="card">
+  <i class="fa-solid fa-clock"></i>
+  <h3>Time Management</h3>
+  <p>Complete reading sections under IELTS exam timing.</p>
+</div>
+
+  </div>
+</div><div class="container" id="speaking">
+  <div class="section-title">
+    <h2>Speaking Lessons</h2>
+  </div>  <div class="grid"><div class="card">
+  <i class="fa-solid fa-microphone"></i>
+  <h3>Band 7 Speaking</h3>
+
+  <iframe src="https://www.youtube.com/embed/Jzps8q2es7c"></iframe>
+</div>
+
+<div class="card">
+  <i class="fa-solid fa-comments"></i>
+  <h3>Fluency Practice</h3>
+
+  <iframe src="https://www.youtube.com/embed/Vv8SKQd2QGk"></iframe>
+</div>
+
+  </div>
+</div><div class="container" id="writing">
+  <div class="section-title">
+    <h2>Writing Mock Tasks</h2>
+  </div>  <div class="grid"><div class="card">
+  <i class="fa-solid fa-chart-column"></i>
+  <h3>Task 1</h3>
+  <p>
+    The graph below shows population growth in four countries.
+    Summarise the information by selecting and reporting the main features.
+  </p>
+</div>
+
+<div class="card">
+  <i class="fa-solid fa-pen-nib"></i>
+  <h3>Task 2</h3>
+  <p>
+    Some people believe technology improves education while others disagree.
+    Discuss both views and give your opinion.
+  </p>
+</div>
+
+<div class="card">
+  <i class="fa-solid fa-file-signature"></i>
+  <h3>Essay Structure</h3>
+  <p>
+    Introduction → Body Paragraph 1 → Body Paragraph 2 → Conclusion.
+  </p>
+</div>
+
+  </div>
+</div><footer>
   <h2>Target IELTS Band 7+</h2>
-  <p>Daily practice + Mock Tests + Smart Learning</p>
-</footer>
-
-<script>
+  <p>Daily practice + Smart Strategy + Mock Tests</p>
+</footer><script>
   function checkAnswer(answer){
-    const result = document.getElementById("result");
+    const result = document.getElementById('result');
 
-    if(answer === "correct"){
-      result.innerHTML = "✅ Correct Answer!";
-      result.style.color = "lightgreen";
+    if(answer === 'correct'){
+      result.innerHTML = '✅ Correct Answer!';
+      result.style.color = 'lightgreen';
     }else{
-      result.innerHTML = "❌ Wrong Answer!";
-      result.style.color = "red";
+      result.innerHTML = '❌ Wrong Answer!';
+      result.style.color = 'red';
     }
   }
-</script>
-
-</body>
-</html>
+</script></body>
+    </html>

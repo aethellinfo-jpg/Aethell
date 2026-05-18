@@ -305,3 +305,126 @@
         }
 
        
+/* GORIZONTAL JANRLAR BO'YICHA FILTRLASH */
+        function filterByGenre(genre, btnElement) {
+            currentGenre = genre;
+            document.querySelectorAll('.genre-btn').forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+
+            searchInput.value = '';
+            suggestionsBox.classList.remove('active');
+
+            let filtered = genre === 'Barchasi' ? books : books.filter(b => b.category === genre);
+            renderBooks(filtered);
+        }
+
+        /* LIVE QIDIRUV VA AVTO-TAKLIFLAR (Autocomplete) */
+        function handleSearch(e) {
+            const query = e.target.value.toLowerCase().trim();
+            
+            if(query.length > 0) {
+                suggestionsBox.classList.add('active');
+                const matched = books.filter(b => 
+                    b.title.toLowerCase().includes(query) || b.author.toLowerCase().includes(query)
+                ).slice(0, 7); // Faqat dastlabki 7 tasini taklif qilish
+
+                if(matched.length > 0) {
+                    suggestionsBox.innerHTML = matched.map(b => `
+                        <div class="suggestion-item" onclick="selectSuggestion('${b.title}')">
+                            <span class="suggestion-title">${b.title}</span>
+                            <span class="suggestion-author">${b.author} | ${b.category}</span>
+                        </div>
+                    `).join('');
+                } else {
+                    suggestionsBox.innerHTML = `<div class="suggestion-item" style="color:#EF4444;">Hech narsa topilmadi...</div>`;
+                }
+            } else {
+                suggestionsBox.classList.remove('active');
+            }
+
+            filterMainGrid(query);
+        }
+
+        function filterMainGrid(query) {
+            let result = books;
+            if (currentGenre !== 'Barchasi') result = result.filter(b => b.category === currentGenre);
+            if (query) result = result.filter(b => b.title.toLowerCase().includes(query) || b.author.toLowerCase().includes(query));
+            renderBooks(result);
+        }
+
+        function selectSuggestion(title) {
+            searchInput.value = title;
+            suggestionsBox.classList.remove('active');
+            filterMainGrid(title.toLowerCase());
+        }
+
+        function showSuggestions() {
+            if(searchInput.value.trim().length > 0) suggestionsBox.classList.add('active');
+        }
+
+        function hideSuggestionsDelay() {
+            setTimeout(() => { suggestionsBox.classList.remove('active'); }, 200);
+        }
+
+        /* SAVATCHA (TANLANGANLAR) TIZIMI */
+        function toggleCart(id, button) {
+            const index = cart.findIndex(item => item.id === id);
+            const book = books.find(b => b.id === id);
+
+            if(index === -1) {
+                // Savatchaga qo'shish
+                cart.push(book);
+                button.classList.add('in-cart');
+                button.innerHTML = `<i class="fa-solid fa-check"></i>`;
+            } else {
+                // Savatchadan olib tashlash
+                cart.splice(index, 1);
+                button.classList.remove('in-cart');
+                button.innerHTML = `<i class="fa-solid fa-bookmark"></i>`;
+            }
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            cartCountBadge.innerText = cart.length;
+            
+            if(cart.length === 0) {
+                cartEmptyState.style.display = 'block';
+                cartList.innerHTML = '';
+                return;
+            }
+            
+            cartEmptyState.style.display = 'none';
+            cartList.innerHTML = cart.map(item => `
+                <li class="cart-item">
+                    <div class="cart-item-info">
+                        <h4>${item.title}</h4>
+                        <p>${item.author}</p>
+                    </div>
+                    <button class="remove-cart-btn" onclick="removeFromCartInside(${item.id})">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                </li>
+            `).join('');
+        }
+
+        function removeFromCartInside(id) {
+            cart = cart.filter(item => item.id !== id);
+            updateCartUI();
+            // Asosiy ekrandagi tugmalarni yangilash
+            renderBooks(currentGenre === 'Barchasi' ? books : books.filter(b => b.category === currentGenre));
+        }
+
+        function openCart() { cartModal.classList.add('active'); updateCartUI(); }
+        function closeCart() { cartModal.classList.remove('active'); }
+
+        // Modal tashqarisiga bosganda yopilishi
+        cartModal.addEventListener('click', (e) => { if(e.target === cartModal) closeCart(); });
+
+        // Dastur birinchi marta yuklanganda ishga tushish
+        window.onload = () => {
+            renderBooks(books);
+        };
+    </script>
+</body>
+</html>

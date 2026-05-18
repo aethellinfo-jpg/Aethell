@@ -1,594 +1,249 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uz">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Aethel IELTS Mastery | Premium Preparation</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Kutubxona | Smart Library</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* ================= VARIABLES & RESET ================= */
         :root {
-            --bg-main: #0B0F19;
-            --bg-card: #131B2F;
-            --bg-card-hover: #1A243D;
-            --primary: #3B82F6;
-            --primary-hover: #2563EB;
-            --accent: #10B981;
-            --text-main: #F8FAFC;
-            --text-muted: #94A3B8;
-            --border: rgba(255, 255, 255, 0.08);
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --primary: #4F46E5;
+            --primary-hover: #4338CA;
+            --bg-color: #F3F4F6;
+            --card-bg: #FFFFFF;
+            --text-dark: #1F2937;
+            --text-light: #6B7280;
+            --danger: #EF4444;
+            --success: #10B981;
+            --transition: all 0.3s ease;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            scroll-behavior: smooth;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-dark); }
 
-        body {
-            background: var(--bg-main);
-            color: var(--text-main);
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
-
-        /* ================= NAVIGATION & LOGO ================= */
+        /* NAVBAR */
         nav {
-            position: fixed;
-            top: 0; width: 100%;
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 20px 5%;
-            background: rgba(11, 15, 25, 0.85);
-            backdrop-filter: blur(12px);
-            z-index: 1000;
-            border-bottom: 1px solid var(--border);
+            background-color: var(--card-bg); padding: 15px 5%; display: flex; justify-content: space-between;
+            align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100;
         }
-
-        .logo {
-            display: flex; align-items: center; gap: 12px;
-            font-size: 28px; font-weight: 800; color: var(--text-main);
-            text-decoration: none;
-            letter-spacing: -0.5px;
-        }
-
-        .logo svg {
-            width: 40px; height: 40px;
-            filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.5));
-        }
-
-        .logo span {
-            background: linear-gradient(135deg, #60A5FA, #3B82F6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        nav ul {
-            display: flex; gap: 30px; list-style: none;
-        }
-
-        nav ul li a {
-            text-decoration: none; color: var(--text-muted);
-            font-size: 15px; font-weight: 500; transition: var(--transition);
-        }
-
-        nav ul li a:hover { color: var(--primary); }
-
-        /* ================= HERO SECTION ================= */
-        .hero {
-            min-height: 100vh;
-            display: flex; justify-content: center; align-items: center;
-            text-align: center; padding: 120px 20px 60px;
-            background: radial-gradient(circle at top, #131B2F 0%, #0B0F19 70%);
-            position: relative; overflow: hidden;
-        }
-
-        .hero::before {
-            content: ''; position: absolute; top: -50%; left: -50%;
-            width: 200%; height: 200%;
-            background: radial-gradient(circle, rgba(59,130,246,0.05) 0%, transparent 50%);
-            animation: pulse 10s infinite alternate;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.1); }
-        }
-
-        .hero-content { position: relative; z-index: 10; max-width: 900px; }
-
-        .hero-content h1 {
-            font-size: 72px; font-weight: 800; margin-bottom: 24px;
-            line-height: 1.1; letter-spacing: -2px;
-        }
-
-        .hero-content h1 span {
-            color: var(--primary);
-        }
-
-        .hero-content p {
-            font-size: 20px; color: var(--text-muted); margin: 0 auto 40px; max-width: 700px;
-        }
-
-        .btn {
-            padding: 16px 40px; border: none; border-radius: 50px;
-            background: var(--primary); color: white;
-            font-size: 16px; font-weight: 600; cursor: pointer;
-            transition: var(--transition); display: inline-flex; align-items: center; gap: 10px;
-            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
-        }
-
-        .btn:hover { background: var(--primary-hover); transform: translateY(-3px); }
-
-        /* ================= GENERAL SECTIONS & GRID ================= */
-        section { padding: 100px 5%; max-width: 1400px; margin: 0 auto; }
+        .logo { font-size: 24px; font-weight: 700; color: var(--primary); text-decoration: none; display: flex; align-items: center; gap: 10px; }
         
-        .section-header { text-align: center; margin-bottom: 60px; }
-        .section-header h2 { font-size: 40px; font-weight: 700; margin-bottom: 15px; }
-        .section-header p { color: var(--text-muted); font-size: 18px; }
+        .btn {
+            background-color: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 8px;
+            font-weight: 500; cursor: pointer; transition: var(--transition); display: flex; align-items: center; gap: 8px;
+        }
+        .btn:hover { background-color: var(--primary-hover); transform: translateY(-2px); }
+        .btn-danger { background-color: var(--danger); padding: 8px 12px; font-size: 14px; }
+        .btn-danger:hover { background-color: #DC2626; }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+        /* HEADER & SEARCH */
+        .header-section { text-align: center; padding: 50px 20px; background: linear-gradient(135deg, #4F46E5 0%, #3B82F6 100%); color: white; }
+        .header-section h1 { font-size: 36px; margin-bottom: 15px; }
+        .search-bar {
+            max-width: 600px; margin: 0 auto; display: flex; background: white; border-radius: 50px; padding: 5px 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
+        .search-bar input { flex: 1; border: none; outline: none; padding: 12px; font-size: 16px; border-radius: 50px; }
+        .search-bar i { color: var(--text-light); align-self: center; font-size: 18px; }
 
-        .card {
-            background: var(--bg-card); border-radius: 24px; padding: 40px;
-            border: 1px solid var(--border); transition: var(--transition);
-            display: flex; flex-direction: column; position: relative; overflow: hidden;
+        /* BOOK GRID */
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        .section-title { margin-bottom: 25px; font-size: 24px; color: var(--text-dark); display: flex; justify-content: space-between; align-items: center;}
+        
+        .book-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 30px; }
+        .book-card {
+            background: var(--card-bg); border-radius: 16px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: var(--transition); display: flex; flex-direction: column; position: relative;
         }
+        .book-card:hover { transform: translateY(-8px); box-shadow: 0 12px 25px rgba(0,0,0,0.1); }
+        
+        .book-cover { height: 200px; background-color: #E5E7EB; display: flex; justify-content: center; align-items: center; color: var(--text-light); font-size: 48px; border-bottom: 1px solid #F3F4F6;}
+        .book-info { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+        .book-category { font-size: 12px; color: var(--primary); font-weight: 600; text-transform: uppercase; margin-bottom: 5px; }
+        .book-title { font-size: 18px; font-weight: 700; margin-bottom: 5px; color: var(--text-dark); }
+        .book-author { font-size: 14px; color: var(--text-light); margin-bottom: 15px; }
+        .book-actions { margin-top: auto; display: flex; justify-content: space-between; align-items: center; }
 
-        .card:hover { transform: translateY(-5px); background: var(--bg-card-hover); border-color: rgba(59, 130, 246, 0.3); }
-        .card h3 { font-size: 24px; margin-bottom: 15px; color: white; }
-        .card p { color: var(--text-muted); margin-bottom: 25px; flex-grow: 1; }
+        .empty-state { text-align: center; padding: 50px; color: var(--text-light); grid-column: 1 / -1; }
 
-        /* ================= ROADMAP ================= */
-        .lesson-list { margin-bottom: 25px; display: flex; flex-direction: column; gap: 10px; }
-        .lesson-item {
-            padding: 15px; background: rgba(0,0,0,0.2); border-radius: 12px;
-            display: flex; justify-content: space-between; align-items: center;
-            font-size: 14px; border: 1px solid rgba(255,255,255,0.03);
+        /* MODAL */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);
+            display: none; justify-content: center; align-items: center; z-index: 1000; opacity: 0; transition: opacity 0.3s;
         }
-        .lesson-item i { color: var(--primary); }
-
-        /* ================= VOCABULARY & QUIZ ================= */
-        .vocab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; }
-        .level-card {
-            text-align: center; padding: 30px 20px; background: var(--bg-card);
-            border-radius: 20px; border: 1px solid var(--border); cursor: pointer; transition: var(--transition);
-        }
-        .level-card:hover { border-color: var(--primary); background: rgba(59, 130, 246, 0.1); }
-        .level-card span { display: block; font-size: 48px; font-weight: 800; color: var(--primary); margin-bottom: 10px; }
-
-        .quiz-container {
-            margin-top: 50px; background: var(--bg-card); padding: 40px;
-            border-radius: 24px; border: 1px solid var(--border); display: none;
-        }
-        .quiz-container.active { display: block; animation: fadeIn 0.5s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        .quiz-header { display: flex; justify-content: space-between; margin-bottom: 30px; align-items: center; }
-        .quiz-question { font-size: 22px; font-weight: 600; margin-bottom: 20px; }
-        .quiz-options { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .quiz-option {
-            padding: 18px; background: rgba(0,0,0,0.3); border-radius: 16px;
-            cursor: pointer; border: 1px solid var(--border); transition: var(--transition); text-align: center;
-        }
-        .quiz-option:hover { background: var(--primary); border-color: var(--primary); }
-        .quiz-option.correct { background: var(--accent); border-color: var(--accent); }
-        .quiz-option.wrong { background: #EF4444; border-color: #EF4444; }
-
-        /* ================= READING & BASKET (LONG PRESS) ================= */
-        .reading-container { display: grid; grid-template-columns: 2fr 1fr; gap: 40px; }
-        .reading-box {
-            background: var(--bg-card); padding: 40px; border-radius: 24px;
-            border: 1px solid var(--border); font-size: 18px; line-height: 2.2;
-        }
-        .interactive-text { color: var(--text-muted); }
-        .reading-word {
-            color: var(--text-main); font-weight: 500; cursor: pointer;
-            position: relative; display: inline-block; transition: 0.2s;
-            border-bottom: 1px dashed var(--primary);
-        }
-        .reading-word:hover { color: var(--primary); }
-        .reading-word.pressing { color: var(--accent); transform: scale(1.05); }
-
-        .basket-box {
-            background: var(--bg-card); padding: 30px; border-radius: 24px;
-            border: 1px solid var(--border); align-self: start; position: sticky; top: 100px;
-        }
-        .basket-box h3 { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; font-size: 20px; }
-        .basket-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-        .basket-item {
-            background: rgba(0,0,0,0.2); padding: 12px 15px; border-radius: 10px;
-            display: flex; justify-content: space-between; align-items: center; font-size: 15px;
-        }
-        .basket-item button { background: none; border: none; color: #EF4444; cursor: pointer; }
-
-        .instruction-toast {
-            background: rgba(59, 130, 246, 0.1); color: var(--primary); padding: 15px;
-            border-radius: 12px; margin-bottom: 20px; font-size: 14px; border: 1px solid rgba(59, 130, 246, 0.3);
-        }
-
-        /* ================= WRITING & DASHBOARD ================= */
-        .dashboard-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-        .stat-card {
-            background: var(--bg-card); padding: 30px; border-radius: 20px;
-            text-align: center; border: 1px solid var(--border);
-        }
-        .stat-card i { font-size: 36px; color: var(--primary); margin-bottom: 15px; }
-        .stat-card h4 { font-size: 14px; color: var(--text-muted); margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px;}
-        .stat-card p { font-size: 28px; font-weight: 700; color: white; margin: 0;}
-
-        /* ================= RESPONSIVE ================= */
-        @media(max-width: 1024px) {
-            .reading-container { grid-template-columns: 1fr; }
-            .dashboard-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media(max-width: 768px) {
-            nav { flex-direction: column; padding: 15px; }
-            nav ul { margin-top: 15px; flex-wrap: wrap; justify-content: center; gap: 15px; }
-            .hero-content h1 { font-size: 48px; }
-            .quiz-options { grid-template-columns: 1fr; }
-        }
+        .modal-overlay.active { display: flex; opacity: 1; }
+        .modal-content { background: var(--card-bg); width: 90%; max-width: 500px; border-radius: 16px; padding: 30px; transform: scale(0.9); transition: transform 0.3s; }
+        .modal-overlay.active .modal-content { transform: scale(1); }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .modal-close { background: none; border: none; font-size: 24px; color: var(--text-light); cursor: pointer; }
+        
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: 500; font-size: 14px; }
+        .form-group input, .form-group select { width: 100%; padding: 12px; border: 1px solid #D1D5DB; border-radius: 8px; font-size: 15px; outline: none; transition: border 0.3s; }
+        .form-group input:focus, .form-group select:focus { border-color: var(--primary); }
     </style>
 </head>
 <body>
 
     <nav>
-        <a href="#" class="logo">
-            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M50 10L90 30V70L50 90L10 70V30L50 10Z" stroke="#3B82F6" stroke-width="6" stroke-linejoin="round"/>
-                <path d="M50 25L75 38V62L50 75L25 62V38L50 25Z" fill="#3B82F6" fill-opacity="0.2" stroke="#60A5FA" stroke-width="4" stroke-linejoin="round"/>
-                <text x="50" y="58" fill="#F8FAFC" font-size="24" font-weight="bold" font-family="Arial" text-anchor="middle">A</text>
-            </svg>
-            <span>Aethel</span>
-        </a>
-        <ul>
-            <li><a href="#roadmap">Roadmap</a></li>
-            <li><a href="#vocabulary">Vocabulary</a></li>
-            <li><a href="#reading">Reading</a></li>
-            <li><a href="#writing">Writing</a></li>
-            <li><a href="#dashboard">Dashboard</a></li>
-        </ul>
+        <a href="#" class="logo"><i class="fa-solid fa-book-open-reader"></i> E-Kutubxona</a>
+        <button class="btn" onclick="openModal()"><i class="fa-solid fa-plus"></i> Kitob Qo'shish</button>
     </nav>
 
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Master IELTS with <span>Aethel</span></h1>
-            <p>To'liq tayyorgarlik ekotizimi. A1 dan boshlab Band 7+ gacha bo'lgan yo'l xaritasi, interaktiv lug'atlar va chuqurlashtirilgan darsliklar.</p>
-            <button class="btn" onclick="document.getElementById('roadmap').scrollIntoView()">
-                Boshlash <i class="fa-solid fa-arrow-right"></i>
-            </button>
+    <header class="header-section">
+        <h1>Kutubxonamizga Xush Kelibsiz</h1>
+        <p style="margin-bottom: 20px; font-size: 18px; opacity: 0.9;">O'zingiz yoqtirgan kitoblarni toping, o'qing va saqlang.</p>
+        <div class="search-bar">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="searchInput" placeholder="Kitob nomi yoki muallifni qidiring..." onkeyup="filterBooks()">
         </div>
-    </section>
+    </header>
 
-    <section id="roadmap">
-        <div class="section-header">
-            <h2>8 Oylik Yo'l Xaritasi</h2>
-            <p>Noldan boshlab yuqori darajagacha tizimli reja</p>
+    <div class="container">
+        <div class="section-title">
+            <h3>Barcha Kitoblar (<span id="bookCount">0</span>)</h3>
         </div>
-        <div class="grid">
-            <div class="card">
-                <h3>Oylar: 1-2</h3>
-                <p>Asosiy grammatika, gap tuzilishi, A1-A2 lug'at va oddiy listening asoslari.</p>
-                <div class="lesson-list">
-                    <div class="lesson-item"><span>Grammatika Asoslari</span><i class="fa-solid fa-book"></i></div>
-                    <div class="lesson-item"><span>Eng kerakli 500 so'z</span><i class="fa-solid fa-font"></i></div>
+        <div class="book-grid" id="bookGrid">
+            </div>
+    </div>
+
+    <div class="modal-overlay" id="addBookModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Yangi Kitob Qo'shish</h2>
+                <button class="modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="addBookForm" onsubmit="addBook(event)">
+                <div class="form-group">
+                    <label>Kitob Nomi *</label>
+                    <input type="text" id="bTitle" required placeholder="Masalan: O'tkan Kunlar">
                 </div>
-                <button class="btn" style="width:100%; justify-content:center; padding:12px;">Darslarni Ochish</button>
-            </div>
-            <div class="card">
-                <h3>Oylar: 3-4</h3>
-                <p>O'rta darajadagi lug'at (B1), Reading strategiyalari (Skimming/Scanning).</p>
-                <div class="lesson-list">
-                    <div class="lesson-item"><span>Reading Texnikalari</span><i class="fa-solid fa-glasses"></i></div>
-                    <div class="lesson-item"><span>B1 Listening mashqlari</span><i class="fa-solid fa-headphones"></i></div>
+                <div class="form-group">
+                    <label>Muallif *</label>
+                    <input type="text" id="bAuthor" required placeholder="Masalan: Abdulla Qodiriy">
                 </div>
-                <button class="btn" style="width:100%; justify-content:center; padding:12px;">Darslarni Ochish</button>
-            </div>
-            <div class="card">
-                <h3>Oylar: 5-6</h3>
-                <p>Writing Task 1 va 2 asoslari, B2 daraja lug'ati, Speaking ravonligi.</p>
-                <div class="lesson-list">
-                    <div class="lesson-item"><span>Writing Task 1</span><i class="fa-solid fa-pen"></i></div>
-                    <div class="lesson-item"><span>Writing Task 2</span><i class="fa-solid fa-pen-nib"></i></div>
+                <div class="form-group">
+                    <label>Kategoriya</label>
+                    <select id="bCategory">
+                        <option value="Badiiy Adabiyot">Badiiy Adabiyot</option>
+                        <option value="Ilmiy">Ilmiy</option>
+                        <option value="Tarixiy">Tarixiy</option>
+                        <option value="Biznes va Psixologiya">Biznes va Psixologiya</option>
+                        <option value="IT va Dasturlash">IT va Dasturlash</option>
+                    </select>
                 </div>
-                <button class="btn" style="width:100%; justify-content:center; padding:12px;">Darslarni Ochish</button>
-            </div>
-            <div class="card">
-                <h3>Oylar: 7-8</h3>
-                <p>To'liq Mock testlar, vaqtni boshqarish, Band 7+ uchun C1/C2 Akademik lug'at.</p>
-                <div class="lesson-list">
-                    <div class="lesson-item"><span>Mock Exam 1</span><i class="fa-solid fa-file-lines"></i></div>
-                    <div class="lesson-item"><span>Band 7+ Insholar</span><i class="fa-solid fa-award"></i></div>
-                </div>
-                <button class="btn" style="width:100%; justify-content:center; padding:12px;">Darslarni Ochish</button>
-            </div>
+                <button type="submit" class="btn" style="width: 100%; justify-content: center; margin-top: 10px;">Saqlash</button>
+            </form>
         </div>
-    </section>
-
-    <section id="vocabulary">
-        <div class="section-header">
-            <h2>Darajali Lug'at va Testlar</h2>
-            <p>A1 dan C2 gacha ishonchli akademik va kundalik so'zlar bazasi</p>
-        </div>
-        <div class="vocab-grid">
-            <div class="level-card" onclick="loadQuiz('A1')"><span>A1</span><p>1000 Basic Words</p></div>
-            <div class="level-card" onclick="loadQuiz('A2')"><span>A2</span><p>1200 Daily Words</p></div>
-            <div class="level-card" onclick="loadQuiz('B1')"><span>B1</span><p>1500 Intermediate</p></div>
-            <div class="level-card" onclick="loadQuiz('B2')"><span>B2</span><p>1500 IELTS Words</p></div>
-            <div class="level-card" onclick="loadQuiz('C1')"><span>C1</span><p>Academic & Formal</p></div>
-            <div class="level-card" onclick="loadQuiz('C2')"><span>C2</span><p>Native Proficiency</p></div>
-        </div>
-
-        <div class="quiz-container" id="quizContainer">
-            <div class="quiz-header">
-                <h3 id="quizLevelTitle" style="color:var(--primary);">B2 Daraja Testi</h3>
-                <span id="quizScore">Score: 0/0</span>
-            </div>
-            <div class="quiz-question" id="quizQuestion">Loading question...</div>
-            <div class="quiz-options" id="quizOptions">
-                </div>
-            <button class="btn" style="margin-top: 20px; display: none;" id="nextBtn" onclick="nextQuestion()">Keyingi Savol</button>
-        </div>
-    </section>
-
-    <section id="reading">
-        <div class="section-header">
-            <h2>Interaktiv Reading Trainer</h2>
-            <p>Matnni o'qing. Noma'lum so'zni ustiga <b style="color:var(--primary)">bosib turing (long press)</b> va u avtomatik savatchaga tushadi.</p>
-        </div>
-        
-        <div class="reading-container">
-            <div class="reading-box">
-                <div class="instruction-toast">
-                    <i class="fa-solid fa-lightbulb"></i> <b>Maslahat:</b> Quyidagi matndagi istalgan so'zni 1 soniya bosib tursangiz (telefon yoki kompyuterda), u o'ng tomondagi yodlash savatchasiga qo'shiladi.
-                </div>
-                <p class="interactive-text" id="readingText">
-                    The <span class="reading-word">proliferation</span> of digital technologies has caused a <span class="reading-word">paradigm</span> shift in modern education. It is <span class="reading-word">inevitable</span> that traditional classrooms will be <span class="reading-word">supplemented</span> by virtual learning environments. However, evaluating the <span class="reading-word">efficacy</span> of these platforms remains a <span class="reading-word">formidable</span> challenge for educators globally. We must <span class="reading-word">scrutinize</span> both the benefits and the <span class="reading-word">detrimental</span> impacts.
-                </p>
-            </div>
-
-            <div class="basket-box">
-                <h3><i class="fa-solid fa-basket-shopping" style="color: var(--primary);"></i> Lug'at Savatchasi</h3>
-                <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 15px;">Yangi so'zlar shu yerda yig'iladi.</p>
-                <ul class="basket-list" id="basketList">
-                    </ul>
-            </div>
-        </div>
-    </section>
-
-    <section id="writing">
-        <div class="section-header">
-            <h2>Writing Darsliklari</h2>
-            <p>IELTS Task 1 va Task 2 uchun ishonchli shablonlar va insholar</p>
-        </div>
-        <div class="grid">
-            <div class="card">
-                <h3>Task 1: Line Graphs</h3>
-                <p>Tendensiyalarni tasvirlash uchun kerakli so'zlar: upward trend, fluctuate, peak at...</p>
-                <button class="btn" style="width: max-content; padding: 10px 20px;">Darsni boshlash</button>
-            </div>
-            <div class="card">
-                <h3>Task 1: Maps & Processes</h3>
-                <p>Xaritalardagi o'zgarishlarni passiv nisbatda (Passive Voice) tasvirlash qoidalari.</p>
-                <button class="btn" style="width: max-content; padding: 10px 20px;">Darsni boshlash</button>
-            </div>
-            <div class="card">
-                <h3>Task 2: Agree/Disagree</h3>
-                <p>Band 7+ uchun to'g'ri tana qismini (Body Paragraph) qanday shakllantirish sirlari.</p>
-                <button class="btn" style="width: max-content; padding: 10px 20px;">Darsni boshlash</button>
-            </div>
-            <div class="card">
-                <h3>Band 8.0 Sample Essays</h3>
-                <p>Ekzaminatorlar tomonidan yuqori baholangan tayyor insholar bazasi.</p>
-                <button class="btn" style="width: max-content; padding: 10px 20px;">Ko'rish</button>
-            </div>
-        </div>
-    </section>
-
-
-          <section id="dashboard">
-        <div class="section-header">
-            <h2>Talaba Paneli</h2>
-        </div>
-        <div class="dashboard-grid">
-            <div class="stat-card">
-                <i class="fa-solid fa-fire"></i>
-                <h4>Study Streak</h4>
-                <p>12 Kun</p>
-            </div>
-            <div class="stat-card">
-                <i class="fa-solid fa-spell-check"></i>
-                <h4>Yodlangan So'zlar</h4>
-                <p id="dashboardVocabCount">0</p>
-            </div>
-            <div class="stat-card">
-                <i class="fa-solid fa-clock"></i>
-                <h4>O'qish Vaqti</h4>
-                <p>24 Soat</p>
-            </div>
-            <div class="stat-card">
-                <i class="fa-solid fa-bullseye"></i>
-                <h4>Target</h4>
-                <p>7.5</p>
-            </div>
-        </div>
-    </section>
-
-    <footer style="text-align: center; padding: 40px; background: rgba(0,0,0,0.5); margin-top: 50px; border-top: 1px solid var(--border);">
-        <h2 style="color: var(--primary); margin-bottom: 10px;">Aethel IELTS Mastery</h2>
-        <p style="color: var(--text-muted); font-size: 14px;">Designed with precision for students targeting Band 7+. All rights reserved.</p>
-    </footer>
+    </div>
 
     <script>
-        /* ================= 1. QUIZ SYSTEM LOGIC ================= */
-        const quizData = {
-            'A1': [
-                { q: "What does 'Apple' mean?", options: ["Olma", "Nok", "Banan", "Uzum"], ans: 0 },
-                { q: "Translate 'Book'", options: ["Daftar", "Qalam", "Kitob", "Ruchka"], ans: 2 }
-            ],
-            'A2': [
-                { q: "Choose the correct translation for 'Everywhere':", options: ["Hech qayerda", "Hamma joyda", "Gohida", "Tez-tez"], ans: 1 },
-                { q: "What does 'Improve' mean?", options: ["Yomonlashtirmoq", "Tugatmoq", "Yaxshilamoq", "Boshlamoq"], ans: 2 }
-            ],
-            'B1': [
-                { q: "What is the synonym of 'Accurate'?", options: ["Wrong", "Correct/Precise", "Careless", "Vague"], ans: 1 },
-                { q: "Meaning of 'Challenge':", options: ["Oson vazifa", "Qiyinchilik/Chaqiriq", "Yechim", "Suhbat"], ans: 1 }
-            ],
-            'B2': [
-                { q: "Choose the synonym for 'Crucial':", options: ["Trivial", "Significant", "Optional", "Ignored"], ans: 1 },
-                { q: "What is the meaning of 'Mitigate'?", options: ["To worsen", "To ignore", "To alleviate", "To praise"], ans: 2 }
-            ],
-            'C1': [
-                { q: "Synonym for 'Ubiquitous':", options: ["Rare", "Omnipresent", "Concealed", "Fragile"], ans: 1 },
-                { q: "What does 'Paradigm' mean?", options: ["A model or pattern", "A complete failure", "A paradox", "A harsh reality"], ans: 0 }
-            ],
-            'C2': [
-                { q: "What does 'Anachronism' mean?", options: ["Something out of its correct historical time", "A short narrative story", "A mathematical absolute", "A state of total peace"], ans: 0 },
-                { q: "Synonym for 'Epitome':", options: ["Perfect example", "Large mistake", "Fake document", "Deep sleep"], ans: 0 }
-            ]
-        };
+        // Boshlang'ich kitoblar bazasi
+        let books = [
+            { id: 1, title: "O'tkan Kunlar", author: "Abdulla Qodiriy", category: "Badiiy Adabiyot", icon: "fa-book-journal-whills" },
+            { id: 2, title: "Atom Odatlar", author: "Jeyms Klir", category: "Biznes va Psixologiya", icon: "fa-brain" },
+            { id: 3, title: "Clean Code", author: "Robert C. Martin", category: "IT va Dasturlash", icon: "fa-code" },
+            { id: 4, title: "Temur Tuzuklari", author: "Amir Temur", category: "Tarixiy", icon: "fa-chess-knight" },
+            { id: 5, title: "Boy Ota, Kambag'al Ota", author: "Robert Kiyosaki", category: "Biznes va Psixologiya", icon: "fa-chart-line" },
+            { id: 6, title: "1984", author: "Jorj Oruell", category: "Badiiy Adabiyot", icon: "fa-eye" }
+        ];
 
-        let currentQuizLevel = '';
-        let currentQuestionIndex = 0;
-        let score = 0;
+        const bookGrid = document.getElementById('bookGrid');
+        const bookCount = document.getElementById('bookCount');
+        const modal = document.getElementById('addBookModal');
 
-        function loadQuiz(level) {
-            currentQuizLevel = level;
-            currentQuestionIndex = 0;
-            score = 0;
-            
-            document.getElementById('quizContainer').classList.add('active');
-            document.getElementById('quizLevelTitle').innerText = `${level} Daraja Testi`;
-            updateScoreDisplay();
-            showQuestion();
-            
-            // Scroll to quiz
-            document.getElementById('quizContainer').scrollIntoView({behavior: 'smooth', block: 'center'});
-        }
+        // Kutubxonani ekranga chiqarish
+        function renderBooks(booksToRender) {
+            bookGrid.innerHTML = '';
+            bookCount.innerText = booksToRender.length;
 
-        function showQuestion() {
-            const data = quizData[currentQuizLevel][currentQuestionIndex];
-            document.getElementById('quizQuestion').innerText = data.q;
-            document.getElementById('nextBtn').style.display = 'none';
-            
-            const optionsContainer = document.getElementById('quizOptions');
-            optionsContainer.innerHTML = '';
-            
-            data.options.forEach((opt, index) => {
-                const div = document.createElement('div');
-                div.className = 'quiz-option';
-                div.innerText = opt;
-                div.onclick = () => checkAnswer(index, div);
-                optionsContainer.appendChild(div);
+            if(booksToRender.length === 0) {
+                bookGrid.innerHTML = `<div class="empty-state">
+                    <i class="fa-solid fa-folder-open" style="font-size: 48px; margin-bottom: 15px;"></i>
+                    <h3>Kitob topilmadi</h3>
+                    <p>Boshqa nom bilan qidirib ko'ring yoki yangi kitob qo'shing.</p>
+                </div>`;
+                return;
+            }
+
+            booksToRender.forEach(book => {
+                // Ikonkalarni tasodifiy yoki kategoriyaga qarab moslash mumkin, hozircha mavjudini ishlatamiz
+                let iconClass = book.icon || 'fa-book';
+
+                const card = document.createElement('div');
+                card.className = 'book-card';
+                card.innerHTML = `
+                    <div class="book-cover">
+                        <i class="fa-solid ${iconClass}"></i>
+                    </div>
+                    <div class="book-info">
+                        <span class="book-category">${book.category}</span>
+                        <h4 class="book-title">${book.title}</h4>
+                        <p class="book-author"><i class="fa-solid fa-pen-nib"></i> ${book.author}</p>
+                        <div class="book-actions">
+                            <button class="btn" style="padding: 6px 12px; font-size: 14px;">O'qish</button>
+                            <button class="btn btn-danger" onclick="deleteBook(${book.id})"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </div>
+                `;
+                bookGrid.appendChild(card);
             });
         }
 
-        function checkAnswer(selectedIndex, element) {
-            // Prevent multiple clicks
-            if(document.querySelector('.quiz-option.correct')) return;
+        // Qidiruv tizimi (Real-time)
+        function filterBooks() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = books.filter(book => 
+                book.title.toLowerCase().includes(query) || 
+                book.author.toLowerCase().includes(query)
+            );
+            renderBooks(filtered);
+        }
 
-            const correctIndex = quizData[currentQuizLevel][currentQuestionIndex].ans;
-            const options = document.querySelectorAll('.quiz-option');
-
-            if(selectedIndex === correctIndex) {
-                element.classList.add('correct');
-                score++;
-            } else {
-                element.classList.add('wrong');
-                options[correctIndex].classList.add('correct');
-            }
+        // Yangi kitob qo'shish
+        function addBook(e) {
+            e.preventDefault(); // Formani yuborishni to'xtatish (sahifa yangilanmaydi)
             
-            updateScoreDisplay();
-            document.getElementById('nextBtn').style.display = 'inline-block';
+            const title = document.getElementById('bTitle').value;
+            const author = document.getElementById('bAuthor').value;
+            const category = document.getElementById('bCategory').value;
+
+            const newBook = {
+                id: Date.now(), // Unikal ID
+                title: title,
+                author: author,
+                category: category,
+                icon: 'fa-book' // Yangi qo'shilganlarga standart ikonka
+            };
+
+            books.unshift(newBook); // Ro'yxat boshiga qo'shish
+            renderBooks(books); // Ekranni yangilash
+            closeModal(); // Oynani yopish
+            document.getElementById('addBookForm').reset(); // Formani tozalash
         }
 
-        function nextQuestion() {
-            currentQuestionIndex++;
-            if(currentQuestionIndex < quizData[currentQuizLevel].length) {
-                showQuestion();
-            } else {
-                document.getElementById('quizQuestion').innerText = `Test yakunlandi! Siz ${quizData[currentQuizLevel].length} tadan ${score} ta topdingiz.`;
-                document.getElementById('quizOptions').innerHTML = '';
-                document.getElementById('nextBtn').style.display = 'none';
+        // Kitobni o'chirish
+        function deleteBook(id) {
+            if(confirm('Haqiqatan ham bu kitobni o\'chirmoqchimisiz?')) {
+                books = books.filter(book => book.id !== id);
+                renderBooks(books);
+                // Agar qidiruv oynasida yozuv bo'lsa, qidiruv bo'yicha yangilash
+                filterBooks();
             }
         }
 
-        function updateScoreDisplay() {
-            document.getElementById('quizScore').innerText = `Score: ${score}/${quizData[currentQuizLevel].length}`;
-        }
-
-        /* ================= 2. READING LONG PRESS (BASKET) LOGIC ================= */
-        const readingWords = document.querySelectorAll('.reading-word');
-        const basketList = document.getElementById('basketList');
-        const dashboardVocabCount = document.getElementById('dashboardVocabCount');
-        let savedWords = new Set(); // Prevent duplicates
-
-        let pressTimer;
-        const longPressDuration = 800; // 0.8 seconds
-
-        readingWords.forEach(word => {
-            // Mouse events (Desktop)
-            word.addEventListener('mousedown', (e) => startPress(e, word));
-            word.addEventListener('mouseup', () => cancelPress(word));
-            word.addEventListener('mouseleave', () => cancelPress(word));
-            
-            // Touch events (Mobile)
-            word.addEventListener('touchstart', (e) => {
-                startPress(e, word);
-            });
-            word.addEventListener('touchend', () => cancelPress(word));
-            word.addEventListener('touchcancel', () => cancelPress(word));
+        // Modalni boshqarish
+        function openModal() { modal.classList.add('active'); }
+        function closeModal() { modal.classList.remove('active'); }
+        
+        // Modal tashqarisiga bossa ham yopilishi
+        modal.addEventListener('click', (e) => {
+            if(e.target === modal) closeModal();
         });
 
-        function startPress(e, wordElement) {
-            wordElement.classList.add('pressing');
-            const cleanWord = wordElement.innerText.replace(/[.,]/g, '').toLowerCase();
-            
-            pressTimer = window.setTimeout(() => {
-                addToBasket(cleanWord);
-                if (navigator.vibrate) navigator.vibrate(50);
-                wordElement.style.color = 'var(--accent)'; // Permanent color change on success
-            }, longPressDuration);
-        }
-
-        function cancelPress(wordElement) {
-            clearTimeout(pressTimer);
-            wordElement.classList.remove('pressing');
-        }
-
-        function addToBasket(word) {
-            if(savedWords.has(word)) return; // Don't add if already in basket
-            
-            savedWords.add(word);
-            
-            const li = document.createElement('li');
-            li.className = 'basket-item';
-            li.innerHTML = `
-                <span>${word}</span>
-                <button onclick="removeFromBasket('${word}', this)"><i class="fa-solid fa-trash"></i></button>
-            `;
-            
-            basketList.appendChild(li);
-            updateDashboardCount();
-        }
-
-        function removeFromBasket(word, btnElement) {
-            savedWords.delete(word);
-            btnElement.parentElement.remove();
-            updateDashboardCount();
-        }
-
-        function updateDashboardCount() {
-            dashboardVocabCount.innerText = savedWords.size;
-        }
-
+        // Dastur ishga tushganda bazadagi kitoblarni chiqarish
+        renderBooks(books);
     </script>
 </body>
-        </html>
+</html>

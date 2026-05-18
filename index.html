@@ -392,7 +392,8 @@
         </div>
     </section>
 
-    <section id="dashboard">
+
+          <section id="dashboard">
         <div class="section-header">
             <h2>Talaba Paneli</h2>
         </div>
@@ -407,7 +408,7 @@
                 <h4>Yodlangan So'zlar</h4>
                 <p id="dashboardVocabCount">0</p>
             </div>
-          <div class="stat-card">
+            <div class="stat-card">
                 <i class="fa-solid fa-clock"></i>
                 <h4>O'qish Vaqti</h4>
                 <p>24 Soat</p>
@@ -432,6 +433,14 @@
                 { q: "What does 'Apple' mean?", options: ["Olma", "Nok", "Banan", "Uzum"], ans: 0 },
                 { q: "Translate 'Book'", options: ["Daftar", "Qalam", "Kitob", "Ruchka"], ans: 2 }
             ],
+            'A2': [
+                { q: "Choose the correct translation for 'Everywhere':", options: ["Hech qayerda", "Hamma joyda", "Gohida", "Tez-tez"], ans: 1 },
+                { q: "What does 'Improve' mean?", options: ["Yomonlashtirmoq", "Tugatmoq", "Yaxshilamoq", "Boshlamoq"], ans: 2 }
+            ],
+            'B1': [
+                { q: "What is the synonym of 'Accurate'?", options: ["Wrong", "Correct/Precise", "Careless", "Vague"], ans: 1 },
+                { q: "Meaning of 'Challenge':", options: ["Oson vazifa", "Qiyinchilik/Chaqiriq", "Yechim", "Suhbat"], ans: 1 }
+            ],
             'B2': [
                 { q: "Choose the synonym for 'Crucial':", options: ["Trivial", "Significant", "Optional", "Ignored"], ans: 1 },
                 { q: "What is the meaning of 'Mitigate'?", options: ["To worsen", "To ignore", "To alleviate", "To praise"], ans: 2 }
@@ -439,6 +448,10 @@
             'C1': [
                 { q: "Synonym for 'Ubiquitous':", options: ["Rare", "Omnipresent", "Concealed", "Fragile"], ans: 1 },
                 { q: "What does 'Paradigm' mean?", options: ["A model or pattern", "A complete failure", "A paradox", "A harsh reality"], ans: 0 }
+            ],
+            'C2': [
+                { q: "What does 'Anachronism' mean?", options: ["Something out of its correct historical time", "A short narrative story", "A mathematical absolute", "A state of total peace"], ans: 0 },
+                { q: "Synonym for 'Epitome':", options: ["Perfect example", "Large mistake", "Fake document", "Deep sleep"], ans: 0 }
             ]
         };
 
@@ -447,9 +460,6 @@
         let score = 0;
 
         function loadQuiz(level) {
-            // Default B2 or C1 data if level missing in mock data for demo
-            if(!quizData[level]) level = 'B2'; 
-            
             currentQuizLevel = level;
             currentQuestionIndex = 0;
             score = 0;
@@ -531,8 +541,6 @@
             
             // Touch events (Mobile)
             word.addEventListener('touchstart', (e) => {
-                // Prevent scrolling while long pressing
-                // e.preventDefault(); 
                 startPress(e, word);
             });
             word.addEventListener('touchend', () => cancelPress(word));
@@ -545,7 +553,6 @@
             
             pressTimer = window.setTimeout(() => {
                 addToBasket(cleanWord);
-                // Vibrate on mobile to give feedback
                 if (navigator.vibrate) navigator.vibrate(50);
                 wordElement.style.color = 'var(--accent)'; // Permanent color change on success
             }, longPressDuration);
@@ -584,4 +591,4 @@
 
     </script>
 </body>
-</html>
+        </html>

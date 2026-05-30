@@ -1,154 +1,510 @@
-export default function IELTSMasteryPlatform() { const listeningLessons = [ { title: "Beginner Listening - Daily Conversation", level: "Elementary", audio: "https://www.elllo.org/audio/1001/T1034-LifeInUzbekistan.mp3", task: "Listen and write 5 new words.", }, { title: "IELTS Listening Practice Test 1", level: "Pre-Intermediate", audio: "https://ieltsonlinetests.com/sites/default/files/2023-07/listening_test.mp3", task: "Answer 10 multiple choice questions.", }, ];
+import { useState, useEffect } from "react";
 
-const speakingVideos = [ { title: "IELTS Speaking Band 7 Example", url: "https://www.youtube.com/watch?v=Jzps8q2es7c", }, { title: "How to Improve Fluency", url: "https://www.youtube.com/watch?v=Vv8SKQd2QGk", }, ];
+const styles = `
+  @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;600;700;900&family=Space+Mono:wght@400;700&display=swap');
 
-const writingTasks = [ { title: "Task 1 - Bar Chart", topic: "Population Growth", sample: "The bar chart illustrates the population growth in four countries between 2000 and 2020...", }, { title: "Task 2 - Opinion Essay", topic: "Technology in Education", sample: "Some people believe technology improves education while others disagree...", }, ];
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-const vocabularyLessons = [ { word: "Achieve", meaning: "to successfully reach a goal", example: "She achieved a high IELTS score.", }, { word: "Environment", meaning: "the natural world around us", example: "Pollution damages the environment.", }, { word: "Benefit", meaning: "an advantage or positive effect", example: "Reading gives many benefits.", }, ];
+  :root {
+    --black: #050810;
+    --deep: #080d1a;
+    --card: #0d1526;
+    --border: rgba(0,210,255,0.12);
+    --cyan: #00d2ff;
+    --cyan2: #00ffcc;
+    --text: #e8f4ff;
+    --muted: #5a7a9a;
+    --glow: 0 0 30px rgba(0,210,255,0.25);
+  }
 
-const readingLessons = [ { title: "Reading Skimming Technique", text: "Learn how to quickly understand the main idea of a passage.", }, { title: "Scanning Practice", text: "Find keywords and answers faster in IELTS reading sections.", }, ];
+  body { background: var(--black); font-family: 'Outfit', sans-serif; color: var(--text); }
 
-return ( <div className="min-h-screen bg-slate-950 text-white p-6"> <div className="max-w-7xl mx-auto space-y-10"> <header className="text-center py-10"> <h1 className="text-5xl font-bold mb-4">IELTS 7+ Mastery Platform</h1> <p className="text-slate-300 text-lg max-w-3xl mx-auto"> 8 oy ichida IELTS 7+ olish uchun maxsus platforma. Elementary darajadan boshlovchilar uchun Vocabulary, Listening, Reading, Speaking va Writing darslari. </p> </header>
+  @keyframes pulse-ring {
+    0% { transform: scale(0.95); opacity: 1; }
+    100% { transform: scale(1.15); opacity: 0; }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+  }
+  @keyframes scan {
+    0% { top: 10%; opacity: 0.8; }
+    100% { top: 90%; opacity: 0; }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+  @keyframes waveBar {
+    0%, 100% { height: 6px; }
+    50% { height: 28px; }
+  }
+  @keyframes shimmer {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+  }
+`;
 
-<section className="grid md:grid-cols-5 gap-4">
-      {[
-        "Vocabulary",
-        "Listening",
-        "Reading",
-        "Speaking",
-        "Writing",
-      ].map((item) => (
+const WaveVisualizer = ({ active }) => {
+  const bars = 20;
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: 3, height: 36 }}>
+      {Array.from({ length: bars }).map((_, i) => (
         <div
-          key={item}
-          className="bg-slate-900 rounded-3xl p-6 shadow-xl border border-slate-800 hover:scale-105 transition"
-        >
-          <h2 className="text-2xl font-semibold">{item}</h2>
-          <p className="text-slate-400 mt-2">
-            Structured lessons and IELTS practice materials.
-          </p>
-        </div>
+          key={i}
+          style={{
+            width: 3,
+            height: active ? `${6 + Math.sin(i * 0.8) * 22}px` : "6px",
+            background: `linear-gradient(to top, var(--cyan), var(--cyan2))`,
+            borderRadius: 2,
+            transition: "height 0.3s ease",
+            animation: active ? `waveBar ${0.4 + (i % 5) * 0.1}s ease-in-out infinite alternate` : "none",
+            animationDelay: `${i * 0.05}s`,
+          }}
+        />
       ))}
-    </section>
+    </div>
+  );
+};
 
-    <section className="bg-slate-900 rounded-3xl p-8 border border-slate-800">
-      <h2 className="text-4xl font-bold mb-6">8-Month Study Roadmap</h2>
-      <div className="grid md:grid-cols-4 gap-4">
-        {[
-          "Month 1-2: Basic Grammar + Vocabulary",
-          "Month 3-4: Listening & Reading Intensive",
-          "Month 5-6: Speaking + Writing Development",
-          "Month 7-8: Full Mock Tests + Band 7 Strategy",
-        ].map((plan) => (
-          <div
-            key={plan}
-            className="bg-slate-800 rounded-2xl p-5"
-          >
-            {plan}
+const MirrorMockup = () => {
+  const [scanning, setScanning] = useState(true);
+  const [score, setScore] = useState(87);
+
+  useEffect(() => {
+    const t = setInterval(() => setScore(s => s + (Math.random() > 0.5 ? 1 : -1)), 2000);
+    return () => clearInterval(t);
+  }, []);
+
+  return (
+    <div style={{
+      position: "relative",
+      width: 260,
+      height: 380,
+      margin: "0 auto",
+      animation: "float 4s ease-in-out infinite",
+    }}>
+      {/* Mirror glow */}
+      <div style={{
+        position: "absolute", inset: -20,
+        background: "radial-gradient(ellipse, rgba(0,210,255,0.15) 0%, transparent 70%)",
+        borderRadius: 40,
+      }} />
+
+      {/* Mirror frame */}
+      <div style={{
+        position: "relative",
+        width: "100%", height: "100%",
+        background: "linear-gradient(135deg, #0d1f35 0%, #060d1a 100%)",
+        borderRadius: 28,
+        border: "1px solid rgba(0,210,255,0.3)",
+        overflow: "hidden",
+        boxShadow: "0 0 60px rgba(0,210,255,0.2), inset 0 0 40px rgba(0,0,0,0.5)",
+      }}>
+        {/* Scan line */}
+        {scanning && (
+          <div style={{
+            position: "absolute", left: 0, right: 0,
+            height: 2,
+            background: "linear-gradient(to right, transparent, var(--cyan), transparent)",
+            top: "10%",
+            animation: "scan 2.5s linear infinite",
+            zIndex: 10,
+          }} />
+        )}
+
+        {/* Mirror reflection effect */}
+        <div style={{
+          position: "absolute", inset: 0,
+          background: "linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 50%)",
+        }} />
+
+        {/* Top status */}
+        <div style={{
+          padding: "18px 18px 0",
+          display: "flex", justifyContent: "space-between", alignItems: "center",
+        }}>
+          <div style={{ fontFamily: "'Space Mono'", fontSize: 10, color: "var(--cyan)", letterSpacing: 2 }}>
+            MIRRORIQ
           </div>
+          <div style={{
+            display: "flex", alignItems: "center", gap: 4,
+            fontSize: 9, color: "var(--cyan2)",
+          }}>
+            <div style={{
+              width: 6, height: 6, borderRadius: "50%",
+              background: "var(--cyan2)",
+              animation: "blink 1.5s ease-in-out infinite",
+            }} />
+            LIVE
+          </div>
+        </div>
+
+        {/* Face placeholder */}
+        <div style={{
+          margin: "16px auto 0",
+          width: 90, height: 110,
+          borderRadius: 50,
+          border: "1px solid rgba(0,210,255,0.2)",
+          background: "rgba(0,210,255,0.04)",
+          display: "flex", alignItems: "center", justifyContent: "center",
+          position: "relative",
+        }}>
+          <svg width="40" height="50" viewBox="0 0 40 50" fill="none">
+            <ellipse cx="20" cy="16" rx="12" ry="14" fill="rgba(0,210,255,0.1)" stroke="rgba(0,210,255,0.3)" strokeWidth="1"/>
+            <path d="M8 42 C8 32 32 32 32 42" stroke="rgba(0,210,255,0.3)" strokeWidth="1" fill="none"/>
+          </svg>
+          {/* Corner markers */}
+          {[[-2,-2], [82,-2], [-2,102], [82,102]].map(([x,y], i) => (
+            <div key={i} style={{
+              position: "absolute",
+              left: x, top: y,
+              width: 10, height: 10,
+              border: "2px solid var(--cyan)",
+              borderRadius: 1,
+              borderRight: i === 0 || i === 2 ? "none" : "2px solid var(--cyan)",
+              borderBottom: i === 0 || i === 1 ? "none" : "2px solid var(--cyan)",
+              borderLeft: i === 1 || i === 3 ? "none" : "2px solid var(--cyan)",
+              borderTop: i === 2 || i === 3 ? "none" : "2px solid var(--cyan)",
+            }}/>
+          ))}
+        </div>
+
+        {/* Score */}
+        <div style={{ textAlign: "center", marginTop: 14 }}>
+          <div style={{
+            fontFamily: "'Space Mono'", fontSize: 36, fontWeight: 700,
+            background: "linear-gradient(135deg, var(--cyan), var(--cyan2))",
+            WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
+            lineHeight: 1,
+          }}>
+            {score}
+          </div>
+          <div style={{ fontSize: 9, color: "var(--muted)", letterSpacing: 2, marginTop: 2 }}>
+            RAVONLIK BALI
+          </div>
+        </div>
+
+        {/* Metrics */}
+        <div style={{ padding: "12px 16px", display: "flex", flexDirection: "column", gap: 6 }}>
+          {[
+            { label: "Tezlik", val: 92 },
+            { label: "Ton", val: 78 },
+            { label: "Aniqlik", val: 85 },
+          ].map(({ label, val }) => (
+            <div key={label}>
+              <div style={{ display: "flex", justifyContent: "space-between", fontSize: 9, color: "var(--muted)", marginBottom: 3 }}>
+                <span style={{ letterSpacing: 1 }}>{label.toUpperCase()}</span>
+                <span style={{ color: "var(--cyan2)", fontFamily: "'Space Mono'" }}>{val}%</span>
+              </div>
+              <div style={{ height: 3, background: "rgba(255,255,255,0.06)", borderRadius: 2 }}>
+                <div style={{
+                  height: "100%", width: `${val}%`,
+                  background: "linear-gradient(to right, var(--cyan), var(--cyan2))",
+                  borderRadius: 2,
+                  boxShadow: "0 0 8px var(--cyan)",
+                }} />
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Wave at bottom */}
+        <div style={{ padding: "0 16px" }}>
+          <WaveVisualizer active={true} />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const PhoneMockup = () => {
+  const [tab, setTab] = useState("nutq");
+
+  return (
+    <div style={{
+      width: 180,
+      height: 360,
+      background: "linear-gradient(160deg, #0d1526 0%, #060d1a 100%)",
+      borderRadius: 32,
+      border: "1px solid rgba(0,210,255,0.2)",
+      overflow: "hidden",
+      boxShadow: "0 20px 60px rgba(0,0,0,0.5)",
+      animation: "float 4s ease-in-out infinite",
+      animationDelay: "1s",
+    }}>
+      {/* Notch */}
+      <div style={{
+        width: 60, height: 20, background: "#050810",
+        borderRadius: "0 0 14px 14px",
+        margin: "0 auto",
+      }} />
+
+      {/* App header */}
+      <div style={{ padding: "8px 16px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <span style={{ fontFamily: "'Space Mono'", fontSize: 11, color: "var(--cyan)" }}>MQ</span>
+        <div style={{ width: 24, height: 24, borderRadius: 8, background: "rgba(0,210,255,0.1)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <circle cx="6" cy="4" r="2.5" stroke="var(--cyan)" strokeWidth="1"/>
+            <path d="M2 10.5c0-2.2 1.8-4 4-4s4 1.8 4 4" stroke="var(--cyan)" strokeWidth="1" strokeLinecap="round"/>
+          </svg>
+        </div>
+      </div>
+
+      {/* Tabs */}
+      <div style={{ display: "flex", margin: "0 12px", gap: 4 }}>
+        {["nutq", "qo'shiq"].map(t => (
+          <button key={t} onClick={() => setTab(t)} style={{
+            flex: 1, padding: "6px 0", fontSize: 9,
+            background: tab === t ? "rgba(0,210,255,0.15)" : "transparent",
+            border: tab === t ? "1px solid rgba(0,210,255,0.4)" : "1px solid transparent",
+            borderRadius: 8, color: tab === t ? "var(--cyan)" : "var(--muted)",
+            cursor: "pointer", fontFamily: "'Outfit'", letterSpacing: 0.5,
+          }}>
+            {t.toUpperCase()}
+          </button>
         ))}
       </div>
-    </section>
 
-    <section className="bg-slate-900 rounded-3xl p-8 border border-slate-800">
-      <h2 className="text-4xl font-bold mb-8">Vocabulary Lessons</h2>
-      <div className="grid md:grid-cols-3 gap-6">
-        {vocabularyLessons.map((lesson) => (
-          <div
-            key={lesson.word}
-            className="bg-slate-800 rounded-2xl p-6"
-          >
-            <h3 className="text-2xl font-bold">{lesson.word}</h3>
-            <p className="text-slate-300 mt-3">{lesson.meaning}</p>
-            <p className="text-green-400 mt-3 italic">
-              {lesson.example}
-            </p>
-          </div>
-        ))}
+      {/* Content */}
+      <div style={{ padding: "12px 14px" }}>
+        {tab === "nutq" ? (
+          <>
+            <div style={{
+              background: "rgba(0,210,255,0.06)", border: "1px solid var(--border)",
+              borderRadius: 12, padding: "10px 12px", marginBottom: 10,
+            }}>
+              <div style={{ fontSize: 9, color: "var(--muted)", marginBottom: 5, letterSpacing: 1 }}>MATN KIRITING</div>
+              <div style={{ fontSize: 10, color: "var(--text)", lineHeight: 1.6, opacity: 0.8 }}>
+                Men bugun juda yaxshi his qilyapman...
+              </div>
+              <div style={{
+                width: 1, height: 12, background: "var(--cyan)",
+                display: "inline-block", marginLeft: 2,
+                animation: "blink 1s ease-in-out infinite",
+              }} />
+            </div>
+
+            <div style={{ display: "flex", gap: 6, marginBottom: 10 }}>
+              {["Tezlik", "To'xtash", "Ton"].map((m, i) => (
+                <div key={m} style={{
+                  flex: 1, background: "rgba(0,210,255,0.06)",
+                  border: "1px solid var(--border)", borderRadius: 8,
+                  padding: "6px 4px", textAlign: "center",
+                }}>
+                  <div style={{ fontFamily: "'Space Mono'", fontSize: 11, color: "var(--cyan2)" }}>
+                    {[88, 92, 76][i]}
+                  </div>
+                  <div style={{ fontSize: 7, color: "var(--muted)", marginTop: 1 }}>{m}</div>
+                </div>
+              ))}
+            </div>
+
+            <WaveVisualizer active={true} />
+          </>
+        ) : (
+          <>
+            <div style={{
+              background: "rgba(0,210,255,0.06)", border: "1px solid var(--border)",
+              borderRadius: 12, padding: "10px", marginBottom: 10,
+            }}>
+              <div style={{ fontSize: 9, color: "var(--cyan)", fontFamily: "'Space Mono'", marginBottom: 6 }}>♪ SEVGI YO'LI</div>
+              <div style={{ fontSize: 9, color: "var(--muted)", lineHeight: 1.8 }}>
+                <span style={{ color: "var(--cyan2)" }}>► Ko'zlaringda</span> yulduzlar bor<br/>
+                <span style={{ color: "var(--muted)" }}>Seni ko'rgan</span> baxtli bo'lar...
+              </div>
+            </div>
+
+            <div style={{
+              background: "rgba(0,255,204,0.06)", border: "1px solid rgba(0,255,204,0.2)",
+              borderRadius: 8, padding: "8px", marginBottom: 8,
+            }}>
+              <div style={{ fontSize: 8, color: "var(--cyan2)", marginBottom: 4, letterSpacing: 1 }}>NOTA ANIQLIGI</div>
+              <div style={{ display: "flex", alignItems: "center", gap: 3, height: 24 }}>
+                {[70, 85, 60, 92, 78, 88, 95, 72].map((h, i) => (
+                  <div key={i} style={{
+                    flex: 1, height: `${h * 0.24}px`,
+                    background: h > 80 ? "var(--cyan2)" : "rgba(0,255,204,0.3)",
+                    borderRadius: 2,
+                  }} />
+                ))}
+              </div>
+            </div>
+
+            <WaveVisualizer active={true} />
+          </>
+        )}
       </div>
-    </section>
+    </div>
+  );
+};
 
-    <section className="bg-slate-900 rounded-3xl p-8 border border-slate-800">
-      <h2 className="text-4xl font-bold mb-8">Listening Lessons</h2>
-      <div className="grid md:grid-cols-2 gap-6">
-        {listeningLessons.map((lesson) => (
-          <div
-            key={lesson.title}
-            className="bg-slate-800 rounded-2xl p-6"
-          >
-            <h3 className="text-2xl font-bold">{lesson.title}</h3>
-            <p className="text-slate-400 mt-2">{lesson.level}</p>
-            <audio controls className="w-full mt-5">
-              <source src={lesson.audio} type="audio/mpeg" />
-            </audio>
-            <p className="mt-4 text-blue-300">Task: {lesson.task}</p>
+export default function App() {
+  const [activeSection, setActiveSection] = useState("home");
+
+  return (
+    <>
+      <style>{styles}</style>
+      <div style={{ minHeight: "100vh", background: "var(--black)", overflowX: "hidden" }}>
+
+        {/* Ambient background */}
+        <div style={{
+          position: "fixed", inset: 0, pointerEvents: "none",
+          background: `
+            radial-gradient(ellipse 60% 40% at 20% 20%, rgba(0,210,255,0.06) 0%, transparent 60%),
+            radial-gradient(ellipse 40% 40% at 80% 80%, rgba(0,255,204,0.04) 0%, transparent 60%)
+          `,
+        }} />
+
+        {/* Grid overlay */}
+        <div style={{
+          position: "fixed", inset: 0, pointerEvents: "none", opacity: 0.03,
+          backgroundImage: `
+            linear-gradient(var(--cyan) 1px, transparent 1px),
+            linear-gradient(90deg, var(--cyan) 1px, transparent 1px)
+          `,
+          backgroundSize: "40px 40px",
+        }} />
+
+        {/* Nav */}
+        <nav style={{
+          position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
+          padding: "16px 40px",
+          display: "flex", justifyContent: "space-between", alignItems: "center",
+          borderBottom: "1px solid rgba(0,210,255,0.08)",
+          backdropFilter: "blur(20px)",
+          background: "rgba(5,8,16,0.8)",
+        }}>
+          <div style={{
+            fontFamily: "'Space Mono'", fontSize: 18, fontWeight: 700,
+            background: "linear-gradient(135deg, var(--cyan), var(--cyan2))",
+            WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
+          }}>
+            MIRRORIQ
           </div>
-        ))}
-      </div>
-    </section>
-
-    <section className="bg-slate-900 rounded-3xl p-8 border border-slate-800">
-      <h2 className="text-4xl font-bold mb-8">Reading Lessons</h2>
-      <div className="grid md:grid-cols-2 gap-6">
-        {readingLessons.map((lesson) => (
-          <div
-            key={lesson.title}
-            className="bg-slate-800 rounded-2xl p-6"
-          >
-            <h3 className="text-2xl font-bold">{lesson.title}</h3>
-            <p className="text-slate-300 mt-4">{lesson.text}</p>
+          <div style={{ display: "flex", gap: 32 }}>
+            {["Mahsulot", "Xususiyatlar", "Narx"].map(item => (
+              <span key={item} style={{
+                fontSize: 13, color: "var(--muted)", cursor: "pointer",
+                letterSpacing: 0.5,
+                transition: "color 0.2s",
+              }}
+              onMouseEnter={e => e.target.style.color = "var(--cyan)"}
+              onMouseLeave={e => e.target.style.color = "var(--muted)"}
+              >{item}</span>
+            ))}
           </div>
-        ))}
-      </div>
-    </section>
+          <button style={{
+            padding: "8px 20px", borderRadius: 8,
+            background: "transparent",
+            border: "1px solid rgba(0,210,255,0.4)",
+            color: "var(--cyan)", fontSize: 12,
+            cursor: "pointer", fontFamily: "'Outfit'", letterSpacing: 1,
+          }}>
+            DEMO
+          </button>
+        </nav>
 
-    <section className="bg-slate-900 rounded-3xl p-8 border border-slate-800">
-      <h2 className="text-4xl font-bold mb-8">Speaking Video Lessons</h2>
-      <div className="grid md:grid-cols-2 gap-6">
-        {speakingVideos.map((video) => (
-          <div
-            key={video.title}
-            className="bg-slate-800 rounded-2xl p-6"
-          >
-            <h3 className="text-2xl font-bold mb-4">{video.title}</h3>
-            <iframe
-              className="w-full aspect-video rounded-xl"
-              src={video.url.replace("watch?v=", "embed/")}
-              title={video.title}
-              allowFullScreen
-            />
+        {/* Hero */}
+        <section style={{ minHeight: "100vh", display: "flex", alignItems: "center", padding: "100px 40px 60px" }}>
+          <div style={{ maxWidth: 1100, margin: "0 auto", width: "100%" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 60, flexWrap: "wrap" }}>
+
+              {/* Left text */}
+              <div style={{ flex: "1 1 400px", animation: "fadeUp 0.8s ease forwards" }}>
+                <div style={{
+                  display: "inline-flex", alignItems: "center", gap: 8,
+                  padding: "6px 14px", borderRadius: 20,
+                  background: "rgba(0,210,255,0.08)", border: "1px solid rgba(0,210,255,0.2)",
+                  fontSize: 11, color: "var(--cyan)", letterSpacing: 2, marginBottom: 24,
+                }}>
+                  <div style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--cyan2)", animation: "blink 1.5s infinite" }} />
+                  AI POWERED SMART MIRROR
+                </div>
+
+                <h1 style={{
+                  fontSize: "clamp(36px, 5vw, 64px)",
+                  fontWeight: 900, lineHeight: 1.1,
+                  marginBottom: 20, letterSpacing: -1,
+                }}>
+                  Ovozingiz
+                  <br/>
+                  <span style={{
+                    background: "linear-gradient(135deg, var(--cyan) 0%, var(--cyan2) 100%)",
+                    WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
+                  }}>mukammal</span>
+                  <br/>bo'lsin
+                </h1>
+
+                <p style={{
+                  fontSize: 15, color: "var(--muted)", lineHeight: 1.7,
+                  maxWidth: 440, marginBottom: 36,
+                }}>
+                  Nutq ravonligi va qo'shiq mahoratingizni AI texnologiyasi orqali 
+                  real vaqtda tahlil qiluvchi aqlli oyna.
+                </p>
+
+                <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+                  <button style={{
+                    padding: "14px 32px", borderRadius: 10,
+                    background: "linear-gradient(135deg, var(--cyan), var(--cyan2))",
+                    border: "none", color: "#050810",
+                    fontSize: 13, fontWeight: 700, cursor: "pointer",
+                    fontFamily: "'Outfit'", letterSpacing: 1,
+                    boxShadow: "0 0 30px rgba(0,210,255,0.4)",
+                  }}>
+                    BOSHLASH →
+                  </button>
+                  <button style={{
+                    padding: "14px 32px", borderRadius: 10,
+                    background: "transparent",
+                    border: "1px solid rgba(0,210,255,0.25)",
+                    color: "var(--text)", fontSize: 13, cursor: "pointer",
+                    fontFamily: "'Outfit'",
+                  }}>
+                    Demo ko'rish
+                  </button>
+                </div>
+
+                {/* Stats */}
+                <div style={{ display: "flex", gap: 36, marginTop: 48 }}>
+                  {[["10K+", "Foydalanuvchi"], ["94%", "Natija"], ["2x", "Tezroq"]].map(([n, l]) => (
+                    <div key={l}>
+                      <div style={{
+                        fontFamily: "'Space Mono'", fontSize: 24, fontWeight: 700,
+                        background: "linear-gradient(135deg, var(--cyan), var(--cyan2))",
+                        WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
+                      }}>{n}</div>
+                      <div style={{ fontSize: 11, color: "var(--muted)", letterSpacing: 0.5, marginTop: 2 }}>{l}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Right - mockups */}
+              <div style={{
+                flex: "1 1 300px",
+                display: "flex", justifyContent: "center", alignItems: "flex-end",
+                gap: 24, animation: "fadeUp 0.8s ease 0.2s forwards", opacity: 0,
+              }}>
+                <div style={{ marginBottom: 40 }}>
+                  <PhoneMockup />
+                </div>
+                <MirrorMockup />
+              </div>
+            </div>
           </div>
-        ))}
-      </div>
-    </section>
+        </section>
 
-    <section className="bg-slate-900 rounded-3xl p-8 border border-slate-800">
-      <h2 className="text-4xl font-bold mb-8">Writing Mock Tasks</h2>
-      <div className="grid md:grid-cols-2 gap-6">
-        {writingTasks.map((task) => (
-          <div
-            key={task.title}
-            className="bg-slate-800 rounded-2xl p-6"
-          >
-            <h3 className="text-2xl font-bold">{task.title}</h3>
-            <p className="text-blue-400 mt-3">Topic: {task.topic}</p>
-            <p className="text-slate-300 mt-4 leading-7">
-              {task.sample}
-            </p>
-          </div>
-        ))}
-      </div>
-    </section>
-
-    <section className="bg-gradient-to-r from-blue-600 to-purple-700 rounded-3xl p-10 text-center">
-      <h2 className="text-5xl font-bold mb-4">Target IELTS Band 7+</h2>
-      <p className="text-xl max-w-3xl mx-auto">
-        Daily study + mock tests + speaking practice orqali 8 oy ichida yuqori natijaga chiqish uchun maxsus tizim.
-      </p>
-      <button className="mt-8 px-8 py-4 bg-white text-black rounded-2xl font-bold text-lg hover:scale-105 transition">
-        Start Learning
-      </button>
-    </section>
-  </div>
-</div>
-
-); }
+        {/* Features */}
+        <section style={{ padding: "80px 40px", borderTop: "1px solid rgba(0,210,255,0.06)" }}>
+          <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+            <div style={{ textAlign: "center", marginBottom: 60 }}>
+              <div style={{ fontSize: 11, color: "var(--cyan)", letterSpacing: 3, marginBottom: 12 }}>XUSUSIYATLAR</div>
+              <h2 style={{ fontSize: 36, fontWeight: 800, letterSpacing: -0.5 }}>
+                Bir oynada{" "}
+                <span style={
